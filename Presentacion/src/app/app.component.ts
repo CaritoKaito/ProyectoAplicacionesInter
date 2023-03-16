@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { TestService } from './test.service';
+import { UserInsertService } from './user-insert.service';
 
 
 @Component({
@@ -8,16 +8,19 @@ import { TestService } from './test.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'Presentacion';
+  title = 'presentacion';
+  nick_name = '';
+  fullname = '';
   
-  constructor(private Variable:TestService){
-    
-  }
-  public ngOnInit(){
-    console.log("hola")
-    this.Variable.test().subscribe(
-    sucess=>{ console.log (sucess)}, 
-    error=>{}
-    )
+  constructor(private userInsertService: UserInsertService) {}
+
+  public onSubmit() {
+    const formData = new FormData();
+    formData.append('nick_name', this.nick_name);
+
+    this.userInsertService.postFormData(formData).subscribe(
+      error => {console.log(error)},
+      success => {console.log(success)}
+    );
   }
 }
