@@ -1,0 +1,29 @@
+version: "3.7"
+
+services:
+
+  db: 
+    image: mysql
+    container_name: mysql-test
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: test
+    volumes:
+      - C:\Users\carol\OneDrive\Documentos\vol:/var/lib/mysql
+    ports:
+      - 3306:3306
+
+  presentacion:
+    image: presentacion:1.0.0
+    container_name: presentacion
+    ports:
+      - 80:80
+
+  apirest:
+    image: api:1.0.0
+    container_name: api
+    ports:
+      - 8000:8000
+
+    depends_on:
+      - db
